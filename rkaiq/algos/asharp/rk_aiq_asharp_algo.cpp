@@ -1,6 +1,7 @@
 
 #include "rk_aiq_asharp_algo.h"
 #include "rk_aiq_algo_asharp_itf.h"
+#include "mfnr_head_v1.h"
 
 RKAIQ_BEGIN_DECLARE
 

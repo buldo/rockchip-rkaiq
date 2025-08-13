@@ -101,6 +101,9 @@ typedef struct DehazeData_s {
     // M4_ARRAY_DESC("air_weitcur", "f32", M4_SIZE(1,100), M4_RANGE(0,1), "0.14",M4_DIGIT(4), M4_DYNAMIC(1))
     float* air_weitcur;
     int air_weitcur_len;
+    // M4_ARRAY_DESC("ISO", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
+    float* ISO;
+    int ISO_len;
 } DehazeData_t;
 
 typedef struct Dehaze_Setting_V10_s {
@@ -127,6 +130,9 @@ typedef struct EnhanceData_s {
     // M4_ARRAY_DESC("enhance_value", "f32", M4_SIZE(1,100), M4_RANGE(1,16), "1",M4_DIGIT(4), M4_DYNAMIC(1))
     float* enhance_value;
     int enhance_value_len;
+    // M4_ARRAY_DESC("ISO", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
+    float* ISO;
+    int ISO_len;
 } EnhanceData_t;
 
 typedef struct Enhance_Setting_V10_s {
@@ -158,6 +164,9 @@ typedef struct HistData_s {
     // M4_ARRAY_DESC("cfg_gratio", "f32", M4_SIZE(1,100), M4_RANGE(0,32), "2",M4_DIGIT(4), M4_DYNAMIC(1))
     float* cfg_gratio;
     int cfg_gratio_len;
+    // M4_ARRAY_DESC("ISO", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
+    float* ISO;
+    int ISO_len;
 } HistData_t;
 
 typedef struct Hist_setting_V10_s {

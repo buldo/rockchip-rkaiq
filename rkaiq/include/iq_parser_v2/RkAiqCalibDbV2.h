@@ -35,6 +35,19 @@
 #include "xcam_log.h"
 #include "xcam_mutex.h"
 
+#if RKAIQ_HAVE_SHARP_V1
+#include "sharp_head_v1.h"
+#include "edgefilter_head_v1.h"
+#endif
+
+#if RKAIQ_HAVE_ORB_V1
+#include "orb_head.h"
+#endif
+
+#if RKAIQ_HAVE_EIS_V1
+#include "eis_head.h"
+#endif
+
 struct cJSON;
 
 typedef struct calib2bin_block_s {

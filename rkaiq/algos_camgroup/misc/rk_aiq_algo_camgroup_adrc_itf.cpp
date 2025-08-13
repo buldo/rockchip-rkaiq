@@ -32,6 +32,7 @@
 #if RKAIQ_HAVE_DRC_V20
 #include "adrc/rk_aiq_adrc_algo_v20.h"
 #endif
+#include "adrc/rk_aiq_types_adrc_algo_prvt.h"
 
 RKAIQ_BEGIN_DECLARE
 
