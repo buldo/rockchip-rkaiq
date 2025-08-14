@@ -5864,9 +5864,11 @@ bool RkAiqCalibParser::parseEntrySensorAecAntiFlicker
                 else if (s_value == CALIB_SENSOR_AEC_ANTIFLICKER_FREQ_60HZ) {
                     aec->CommCtrl.stAntiFlicker.Frequency = AEC_FLICKER_FREQUENCY_60HZ;
                 }
+#ifndef ISP_HW_V20
                 else if (s_value == CALIB_SENSOR_AEC_ANTIFLICKER_FREQ_AUTO) {
                     mCalibDb->aec.CommCtrl.stAntiFlicker.Frequency = AEC_FLICKER_FREQUENCY_AUTO;
                 }
+#endif
                 else {
                     aec->CommCtrl.stAntiFlicker.Frequency = AEC_FLICKER_FREQUENCY_OFF;
                     LOGE("%s(%d): invalid stAntiFlicker.Frequency = %s\n", __FUNCTION__, __LINE__, s_value.c_str());
@@ -5881,9 +5883,11 @@ bool RkAiqCalibParser::parseEntrySensorAecAntiFlicker
                 else if (aec->CommCtrl.stAntiFlicker.Frequency == AEC_FLICKER_FREQUENCY_60HZ) {
                     pNode->FirstChild()->SetValue(CALIB_SENSOR_AEC_ANTIFLICKER_FREQ_60HZ);
                 }
+#ifndef ISP_HW_V20
                 else if (mCalibDb->aec.CommCtrl.stAntiFlicker.Frequency == AEC_FLICKER_FREQUENCY_AUTO) {
                     pNode->FirstChild()->SetValue(CALIB_SENSOR_AEC_ANTIFLICKER_FREQ_AUTO);
                 }
+#endif
                 else {
                     pNode->FirstChild()->SetValue("Invalid");
                     LOGE("%s(%d): (XML Write)invalid AEC stAntiFlicker.Frequency = %d\n", __FUNCTION__, __LINE__, aec->CommCtrl.stAntiFlicker.Frequency);
@@ -11317,7 +11321,7 @@ bool RkAiqCalibParser::parseEntrySensorInfoGainRange
                 sensor->GainRange.array_size = i;
             }
             else if (xmlParseReadWrite == XML_PARSER_WRITE) {
-                char str[10];
+                char str[32];
                 int i = sensor->GainRange.array_size;
                 DCT_ASSERT(((i % 7) == 0));
                 snprintf(str, sizeof(str), "[%d 7]", (i / 7));
@@ -20453,7 +20457,7 @@ bool RkAiqCalibParser::parseEntryExpSetGain2Reg
                 expset->Gain2Reg.array_size = i;
             }
             else if (xmlParseReadWrite == XML_PARSER_WRITE) {
-                char str[10];
+                char str[32];
                 int i = expset->Gain2Reg.array_size;
                 DCT_ASSERT(((i % 7) == 0));
                 snprintf(str, sizeof(str), "[%d 7]", (i / 7));

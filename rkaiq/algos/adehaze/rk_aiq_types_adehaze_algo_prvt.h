@@ -69,6 +69,7 @@ typedef struct AdehazeExpInfo_s {
 } AdehazeExpInfo_t;
 
 typedef struct AdehazeAePreResV10_s {
+    float EnvLv;
     float ISO;
     CtrlDataType_t CtrlDataType;
     dehaze_api_mode_t ApiMode;

@@ -32,8 +32,8 @@ int ynrV1_calibdb_to_calibdbV2(const CalibDb_YNR_2_t *pCalibdb,  CalibDbV2_YnrV1
     pTuningParaV2 = &pCalibdbV2->TuningPara;
 
     //malloc settting size
-    pCalibParaV2->Setting = (CalibDbV2_YnrV1_Calib_Set_t *)malloc(YNRV1_SETTING_NUM * sizeof(CalibDbV2_YnrV1_Calib_Set_t));
-    memset(pCalibParaV2->Setting,  0x00, YNRV1_SETTING_NUM * sizeof(CalibDbV2_YnrV1_Calib_Set_t));
+    pCalibParaV2->Setting = (CalibDbV2_YnrV1_C_Set_t *)malloc(YNRV1_SETTING_NUM * sizeof(CalibDbV2_YnrV1_C_Set_t));
+    memset(pCalibParaV2->Setting,  0x00, YNRV1_SETTING_NUM * sizeof(CalibDbV2_YnrV1_C_Set_t));
     pCalibParaV2->Setting_len = YNRV1_SETTING_NUM;
     pTuningParaV2->Setting = (CalibDbV2_YnrV1_T_Set_t *)malloc(YNRV1_SETTING_NUM * sizeof(CalibDbV2_YnrV1_T_Set_t));
     memset(pTuningParaV2->Setting, 0x00, YNRV1_SETTING_NUM * sizeof(CalibDbV2_YnrV1_T_Set_t));

@@ -25,7 +25,9 @@ FecParamStream::FecParamStream (SmartPtr<V4l2Device> dev, int type)
     : RKStream(dev, type)
 {
     _dev->open();
+#ifndef DISABLE_PARAMS_ASSEMBLER
     mParamsAssembler = new IspParamsAssembler("FEC_PARAMS_ASSEMBLER");
+#endif
     mCamHw = NULL;
     memset(&last_ispp_fec_params, 0, sizeof(last_ispp_fec_params));
 }
@@ -34,7 +36,9 @@ FecParamStream::FecParamStream (const rk_sensor_full_info_t *s_info)
     : RKStream(s_info->ispp_info->pp_fec_params_path, ISPP_POLL_FEC_PARAMS)
 {
     _dev->open();
+#ifndef DISABLE_PARAMS_ASSEMBLER
     mParamsAssembler = new IspParamsAssembler("FEC_PARAMS_ASSEMBLER");
+#endif
     mCamHw = NULL;
     memset(&last_ispp_fec_params, 0, sizeof(last_ispp_fec_params));
 }
@@ -53,6 +57,7 @@ FecParamStream::start()
         RKStream::start();
     }
     // set inital params
+#ifndef DISABLE_PARAMS_ASSEMBLER
     ret = mParamsAssembler->start();
     if (ret < 0) {
         LOGE_CAMHW_SUBM(ISP20HW_SUBM, "params assembler start err: %d\n", ret);
@@ -63,14 +68,17 @@ FecParamStream::start()
         configToDrv(0);
     else
         LOGE_CAMHW_SUBM(ISP20HW_SUBM, "no inital fec params ready");
+#endif
 }
 
 void
 FecParamStream::stop()
 {
     RKStream::stop();
+#ifndef DISABLE_PARAMS_ASSEMBLER
     if (mParamsAssembler.ptr())
         mParamsAssembler->stop();
+#endif
 }
 
 void FecParamStream::set_devices(CamHwIsp20* camHw, SmartPtr<V4l2SubDevice> isppdev)
@@ -82,16 +90,17 @@ void FecParamStream::set_devices(CamHwIsp20* camHw, SmartPtr<V4l2SubDevice> ispp
 XCamReturn FecParamStream::configToDrv(uint32_t frameId)
 {
     XCamReturn ret = XCAM_RETURN_NO_ERROR;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     XCAM_ASSERT (mParamsAssembler.ptr());
-
+#endif
     SmartPtr<V4l2Buffer> v4l2buf_fec;
     struct rkispp_params_feccfg *ispp_fec_params = NULL;
-
+#ifndef DISABLE_PARAMS_ASSEMBLER
     if (!mParamsAssembler->ready()) {
         LOGI_CAMHW_SUBM(ISP20HW_SUBM, "have no fec new parameter\n");
         return XCAM_RETURN_ERROR_PARAM;
     }
-
+#endif
     ret = _dev->get_buffer(v4l2buf_fec);
     if (ret) {
         LOGW_CAMHW_SUBM(ISP20HW_SUBM, "Can not get ispp fec params buffer\n");
@@ -99,12 +108,14 @@ XCamReturn FecParamStream::configToDrv(uint32_t frameId)
     }
 
     cam3aResultList ready_results;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     ret = mParamsAssembler->deQueOne(ready_results, frameId);
     if (ret != XCAM_RETURN_NO_ERROR) {
         LOGI_CAMHW_SUBM(ISP20HW_SUBM, "deque parameter failed\n");
         ret = XCAM_RETURN_ERROR_PARAM;
         goto ret_fec_buf;
     }
+#endif
 
     ispp_fec_params = (struct rkispp_params_feccfg*)v4l2buf_fec->get_buf().m.userptr;
     if (mCamHw->get_fec_cfg_params(ready_results, *ispp_fec_params) != XCAM_RETURN_NO_ERROR)
@@ -144,6 +155,7 @@ ret_fec_buf:
 XCamReturn FecParamStream::config_params(uint32_t frameId, SmartPtr<cam3aResult>& result)
 {
     XCamReturn ret = XCAM_RETURN_NO_ERROR;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     XCAM_ASSERT (mParamsAssembler.ptr());
 
     // params device should started befor any params queued
@@ -158,7 +170,7 @@ XCamReturn FecParamStream::config_params(uint32_t frameId, SmartPtr<cam3aResult>
                 break;
         }
     }
-
+#endif
     return ret;
 }
 } //namspace RkCam

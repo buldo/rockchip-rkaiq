@@ -38,6 +38,9 @@ typedef enum CtrlDataType_e {
 } CtrlDataType_t;
 
 typedef struct DehazeData_s {
+    // M4_ARRAY_DESC("ISO", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
+    float* ISO;
+    int ISO_len;
     // M4_ARRAY_DESC("CtrlData", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
     float* CtrlData;
     int CtrlData_len;
@@ -121,6 +124,9 @@ typedef struct Dehaze_Setting_V10_s {
 } Dehaze_Setting_V10_t;
 
 typedef struct EnhanceData_s {
+    // M4_ARRAY_DESC("ISO", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
+    float* ISO;
+    int ISO_len;
     // M4_ARRAY_DESC("CtrlData", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
     float* CtrlData;
     int CtrlData_len;
@@ -137,6 +143,9 @@ typedef struct Enhance_Setting_V10_s {
 } Enhance_Setting_V10_t;
 
 typedef struct HistData_s {
+    // M4_ARRAY_DESC("ISO", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
+    float* ISO;
+    int ISO_len;
     // M4_ARRAY_DESC("CtrlData", "f32", M4_SIZE(1,100), M4_RANGE(0,10000000), "50",M4_DIGIT(4), M4_DYNAMIC(1))
     float* CtrlData;
     int CtrlData_len;

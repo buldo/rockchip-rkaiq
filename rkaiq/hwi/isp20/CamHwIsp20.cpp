@@ -6001,7 +6001,7 @@ CamHwIsp20::analyzePpInitEns(SmartPtr<cam3aResult> &result)
         fec = result.get_cast_ptr<RkAiqIspFecParamsProxy>();
         if (fec) {
             rk_aiq_isp_fec_t& fec_param = fec->data()->result;
-            if(fec_param.sw_fec_en) {
+            if(fec_param.fec_en) {
                 if (fec_param.usage == ISPP_MODULE_FEC_ST) {
                     mPpModuleInitEns |= ISPP_MODULE_FEC_ST;
                 } else if (fec_param.usage == ISPP_MODULE_FEC) {
@@ -6206,8 +6206,8 @@ retry:
         struct isp39_isp_params_cfg* isp_params =
                 (struct isp39_isp_params_cfg*)v4l2buf->get_buf().m.userptr;
 #else
-        struct isp20_isp_params_cfg* isp_params =
-            (struct isp20_isp_params_cfg*)v4l2buf->get_buf().m.userptr;
+        struct isp2x_isp_params_cfg* isp_params =
+            (struct isp2x_isp_params_cfg*)v4l2buf->get_buf().m.userptr;
 #endif
         int buf_index      = v4l2buf->get_buf().index;
         bool isMultiIsp    = mIsMultiIspMode;
@@ -7019,8 +7019,8 @@ CamHwIsp20::sendNullParamBufForIsp(uint32_t frameId)
         struct isp21_isp_params_cfg* isp_params =
             (struct isp21_isp_params_cfg*)v4l2buf->get_buf().m.userptr;
 #else
-        struct isp20_isp_params_cfg* isp_params =
-            (struct isp20_isp_params_cfg*)v4l2buf->get_buf().m.userptr;
+        struct isp2x_isp_params_cfg* isp_params =
+            (struct isp2x_isp_params_cfg*)v4l2buf->get_buf().m.userptr;
 #endif
         isp_params->module_en_update  = 0;
         isp_params->module_cfg_update = 0;

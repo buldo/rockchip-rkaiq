@@ -217,7 +217,7 @@ XCamReturn RkAiqAblcHandleInt::processing() {
         (RkAiqCore::RkAiqAlgosGroupShared_t*)(getGroupShared());
     RkAiqCore::RkAiqAlgosComShared_t* sharedCom = &mAiqCore->mAlogsComSharedParams;
 
-    mProcResShared->result.ablc_proc_res = &shared->fullParams->mBlcParams->data()->result.v0;
+    mProcResShared->result.ablc_proc_res = &shared->fullParams->mBlcParams->data()->result;
 
     ret = RkAiqHandle::processing();
     if (ret < 0) {
@@ -347,7 +347,7 @@ XCamReturn RkAiqAblcHandleInt::genIspResult(RkAiqFullParams* params, RkAiqFullPa
             blc_param->sync_flag = mSyncFlag;
             // copy from algo result
             cur_params->mBlcParams = params->mBlcParams;
-            mLatestparam = &cur_params->mBlcParams->data()->result.v0;
+            mLatestparam = &cur_params->mBlcParams->data()->result;
             blc_param->is_update = true;
             LOGD_ABLC("[%d] params from algo", mSyncFlag);
         } else if (mSyncFlag != blc_param->sync_flag) {

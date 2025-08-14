@@ -341,8 +341,10 @@ typedef SharedItemProxy<rk_aiq_isp_tnr_params_t>        RkAiqIspTnrParamsProxy;
 #if (USE_NEWSTRUCT == 0)
 typedef SharedItemPool<rk_aiq_isp_ynr_params_t>         RkAiqIspYnrParamsPool;
 typedef SharedItemProxy<rk_aiq_isp_ynr_params_t>        RkAiqIspYnrParamsProxy;
+#ifndef ISP_HW_V20
 typedef SharedItemPool<rk_aiq_isp_cnr_params_t>         RkAiqIspCnrParamsPool;
 typedef SharedItemProxy<rk_aiq_isp_cnr_params_t>        RkAiqIspCnrParamsProxy;
+#endif
 #endif
 typedef SharedItemPool<rk_aiq_isp_uvnr_params_t>        RkAiqIspUvnrParamsPool;
 typedef SharedItemProxy<rk_aiq_isp_uvnr_params_t>       RkAiqIspUvnrParamsProxy;
@@ -358,12 +360,14 @@ typedef SharedItemPool<rk_aiq_isp_afd_params_t>         RkAiqIspAfdParamsPool;
 typedef SharedItemProxy<rk_aiq_isp_afd_params_t>        RkAiqIspAfdParamsProxy;
 
 //v21 pools
+#ifndef ISP_HW_V20
 typedef SharedItemPool<rk_aiq_isp_drc_params_t>         RkAiqIspDrcParamsPool;
 typedef SharedItemProxy<rk_aiq_isp_drc_params_t>        RkAiqIspDrcParamsProxy;
 typedef SharedItemPool<rk_aiq_isp_baynr_params_t>       RkAiqIspBaynrParamsPool;
 typedef SharedItemProxy<rk_aiq_isp_baynr_params_t>      RkAiqIspBaynrParamsProxy;
 typedef SharedItemPool<rk_aiq_isp_bay3d_params_t>       RkAiqIspBa3dParamsPool;
 typedef SharedItemProxy<rk_aiq_isp_bay3d_params_t>      RkAiqIspBa3dParamsProxy;
+#endif
 
 //v3x pools
 #if RKAIQ_HAVE_CAC
@@ -456,9 +460,11 @@ public:
           mOrbParams(NULL)
           // TODO: change full params to list
           // V21 differential modules
+#ifndef ISP_HW_V20
         ,
           mDrcParams(NULL),
           mBaynrParams(NULL)
+#endif
           // , mBa3dParams(NULL)
           // V39 differential modules
 #if RKAIQ_HAVE_CAC
@@ -602,10 +608,13 @@ public:
 
     // TODO: change full params to list
     // V21 differential modules
+#ifndef ISP_HW_V20
     SmartPtr<RkAiqIspDrcParamsProxy>        mDrcParams;
     SmartPtr<RkAiqIspBaynrParamsProxy>   mBaynrParams;
     //SmartPtr<RkAiqIspBa3dParamsProxyV21>    mBa3dParams;
     SmartPtr<RkAiqIspCnrParamsProxy>     mCnrParams;
+#endif
+
 #if RKAIQ_HAVE_CAC
     SmartPtr<RkAiqIspCacParamsProxy>     mCacParams;
 #endif

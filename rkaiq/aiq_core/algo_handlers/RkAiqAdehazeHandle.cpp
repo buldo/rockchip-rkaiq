@@ -224,7 +224,7 @@ XCamReturn RkAiqAdehazeHandleInt::processing() {
     }
 
 #ifdef RKAIQ_ENABLE_PARSER_V1
-    adhaz_proc_int->pCalibDehaze = sharedCom->calib;
+    adhaz_proc_int->pCalibDehaze = &shared->fullParams->mDehazeParams;
 #endif
 
 #ifdef RK_SIMULATOR_HW

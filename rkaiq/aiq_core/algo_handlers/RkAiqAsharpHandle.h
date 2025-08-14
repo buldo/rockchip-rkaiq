@@ -29,8 +29,10 @@ class RkAiqAsharpHandleInt : virtual public RkAiqHandle {
 public:
     explicit RkAiqAsharpHandleInt(RkAiqAlgoDesComm* des, RkAiqCore* aiqCore)
         : RkAiqHandle(des, aiqCore) {
+#ifndef DISABLE_HANDLE_ATTRIB
         memset(&mCurAtt, 0, sizeof(rk_aiq_sharp_attrib_t));
         memset(&mNewAtt, 0, sizeof(rk_aiq_sharp_attrib_t));
+#endif
     };
     virtual ~RkAiqAsharpHandleInt() {
         RkAiqHandle::deInit();

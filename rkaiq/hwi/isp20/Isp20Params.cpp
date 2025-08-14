@@ -1517,7 +1517,7 @@ void Isp20Params::convertAiqAdehazeToIsp20Params(T& isp_cfg,
     int rawWidth = 1920;
     int rawHeight = 1080;
 #endif
-    if (dhaze.ProcResV10.enable) {
+    if (dhaze.enable) {
         isp_cfg.module_ens |= ISP2X_MODULE_DHAZ;
         isp_cfg.module_en_update |= ISP2X_MODULE_DHAZ;
         isp_cfg.module_cfg_update |= ISP2X_MODULE_DHAZ;
@@ -2759,8 +2759,8 @@ void Isp20Params::convertAiqFecToIsp20Params(T &pp_cfg,
      * changed in CamIsp20Hw.cpp
      */
 
-    LOGD_CAMHW_SUBM(ISP20PARAM_SUBM, "fec update params, enable %d usage %d", fec.sw_fec_en, fec.usage);
-    if(fec.sw_fec_en) {
+    LOGD_CAMHW_SUBM(ISP20PARAM_SUBM, "fec update params, enable %d usage %d", fec.fec_en, fec.usage);
+    if(fec.fec_en) {
         if (fec.usage == ISPP_MODULE_FEC_ST) {
             pp_cfg.head.module_ens |= ISPP_MODULE_FEC_ST;
             pp_cfg.head.module_en_update |= ISPP_MODULE_FEC_ST;
@@ -4457,7 +4457,7 @@ XCamReturn Isp20Params::get_tnr_cfg_params(cam3aResultList &results, struct rkis
         RkAiqIspTnrParamsProxy* tnr = nullptr;
         tnr = cam3a_result.get_cast_ptr<RkAiqIspTnrParamsProxy>();
 #if RKAIQ_HAVE_ANR_V1
-        if (tnr.ptr())
+        if (tnr)
             convertAiqTnrToIsp20Params(tnr_cfg, tnr->data()->result);
 #endif
     }
@@ -4499,9 +4499,12 @@ Isp20Params::get_3a_result (cam3aResultList &results, int32_t type)
 
 } //namspace RkCam
 //TODO: to solve template ld compile issue, add isp21 source file here now.
+#ifndef ISP_HW_V20
 #include "isp21/Isp21Params.cpp"
 #include "isp3x/Isp3xParams.cpp"
 #include "isp32/Isp32Params.cpp"
+#endif
+
 #ifdef ISP_HW_V39
 #include "isp39/Isp39Params.cpp"
 #endif

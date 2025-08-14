@@ -46,7 +46,9 @@ private:
     SmartPtr<NrStatsStream> mNrStatsStream;
     CamHwIsp20 *mCamHw;
     SmartPtr<V4l2SubDevice> mIsppSubDev;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     SmartPtr<IspParamsAssembler> mParamsAssembler;
+#endif
     struct rkispp_params_nrcfg last_ispp_nr_params;
 };
 

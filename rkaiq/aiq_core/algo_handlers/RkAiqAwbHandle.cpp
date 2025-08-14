@@ -877,9 +877,9 @@ XCamReturn RkAiqAwbHandleInt::processing() {
 #endif
 #elif RKAIQ_HAVE_AWB_V20
     if (shared->awbStatsBuf)
-        awb_proc_int->awbStatsBuf = &shared->awbStatsBuf->awb_stats;
+        awb_proc_int->awb_statsBuf = &shared->awbStatsBuf->awb_stats;
     else
-        awb_proc_int->awbStatsBuf = NULL;
+        awb_proc_int->awb_statsBuf = NULL;
 #else
     LOGE_AWB("module_hw_version of awb is isvalid!!!!");
 #endif

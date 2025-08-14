@@ -30,7 +30,9 @@ NrStreamProcUnit::NrStreamProcUnit (const rk_sensor_full_info_t *s_info)
     mNrParamsDev->open();
     mNrStatsStream = new NrStatsStream(mNrStatsDev, ISPP_POLL_NR_STATS);
     mNrParamStream = new RKStream(mNrParamsDev, ISPP_POLL_NR_PARAMS);
+#ifndef DISABLE_PARAMS_ASSEMBLER
     mParamsAssembler = new IspParamsAssembler("NR_PARAMS_ASSEMBLER");
+#endif
     mCamHw = NULL;
     memset(&last_ispp_nr_params, 0, sizeof(last_ispp_nr_params));
 }
@@ -52,6 +54,7 @@ NrStreamProcUnit::start()
             mNrParamStream->start();
     }
     // set inital params
+#ifndef DISABLE_PARAMS_ASSEMBLER
     ret = mParamsAssembler->start();
     if (ret < 0) {
         LOGE_CAMHW_SUBM(ISP20HW_SUBM, "params assembler start err: %d\n", ret);
@@ -62,6 +65,7 @@ NrStreamProcUnit::start()
         configToDrv(0);
     else
         LOGE_CAMHW_SUBM(ISP20HW_SUBM, "no inital nr params ready");
+#endif
 }
 
 void
@@ -71,8 +75,10 @@ NrStreamProcUnit::stop()
         mNrParamStream->stop();
     if (mNrStatsStream.ptr())
         mNrStatsStream->stop();
+#ifndef DISABLE_PARAMS_ASSEMBLER
     if (mParamsAssembler.ptr())
         mParamsAssembler->stop();
+#endif
 }
 
 void
@@ -96,14 +102,18 @@ NrStreamProcUnit::set_devices(CamHwIsp20 *camHw, SmartPtr<V4l2SubDevice> isppdev
 XCamReturn NrStreamProcUnit::configToDrv(uint32_t frameId)
 {
     XCamReturn ret = XCAM_RETURN_NO_ERROR;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     XCAM_ASSERT (mParamsAssembler.ptr());
+#endif
 
     SmartPtr<V4l2Buffer> v4l2buf_nr;
     if (mNrParamsDev.ptr()) {
+#ifndef DISABLE_PARAMS_ASSEMBLER
         if (!mParamsAssembler->ready()) {
             LOGI_CAMHW_SUBM(ISPP_NR_SUBM, "have no nr new parameter\n");
             return XCAM_RETURN_ERROR_PARAM;
         }
+#endif
 
         ret = mNrParamsDev->get_buffer(v4l2buf_nr);
         if (ret) {
@@ -112,12 +122,14 @@ XCamReturn NrStreamProcUnit::configToDrv(uint32_t frameId)
         }
 
         cam3aResultList ready_results;
+#ifndef DISABLE_PARAMS_ASSEMBLER
         ret = mParamsAssembler->deQueOne(ready_results, frameId);
         if (ret != XCAM_RETURN_NO_ERROR) {
             LOGI_CAMHW_SUBM(ISPP_NR_SUBM, "deque parameter failed\n");
             ret = XCAM_RETURN_ERROR_PARAM;
             goto ret_nr_buf;
         }
+#endif
 
         struct rkispp_params_nrcfg* ispp_nr_params = (struct rkispp_params_nrcfg*)v4l2buf_nr->get_buf().m.userptr;
         if (mCamHw->merge_results(ready_results, *ispp_nr_params) != XCAM_RETURN_NO_ERROR)
@@ -166,6 +178,7 @@ ret_nr_buf:
 XCamReturn NrStreamProcUnit::config_params(uint32_t frameId, SmartPtr<cam3aResult>& result)
 {
     XCamReturn ret = XCAM_RETURN_NO_ERROR;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     XCAM_ASSERT (mParamsAssembler.ptr());
     // params device should started befor any params queued
     if (mNrParamsDev.ptr() && !mNrParamsDev->is_activated()) {
@@ -179,7 +192,7 @@ XCamReturn NrStreamProcUnit::config_params(uint32_t frameId, SmartPtr<cam3aResul
                 break;
         }
     }
-
+#endif
     return ret;
 }
 

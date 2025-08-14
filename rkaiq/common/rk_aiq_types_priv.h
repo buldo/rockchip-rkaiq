@@ -50,6 +50,8 @@ struct rk_aiq_isp_params_t : public XCam::BufferData {
     T   result;
     uint32_t frame_id;
     uint32_t sync_flag;
+    int update_mask;
+
     rk_aiq_isp_params_t() {
         is_update = false;
         sync_flag = (uint32_t)(-2); // initial value should be different with handler's

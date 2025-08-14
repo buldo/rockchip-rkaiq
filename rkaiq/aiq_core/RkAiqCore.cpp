@@ -2959,7 +2959,9 @@ void RkAiqCore::newAiqParamsPool()
 #endif
                 break;
             case RK_AIQ_ALGO_TYPE_ADRC:
+#ifndef ISP_HW_V20
                 mAiqIspDrcParamsPool = new RkAiqIspDrcParamsPool("RkAiqIspDrcParamsPool", RkAiqCore::DEFAULT_POOL_SIZE);
+#endif
                 break;
             case RK_AIQ_ALGO_TYPE_AFD:
                 mAiqIspAfdParamsPool        = new RkAiqIspAfdParamsPool("RkAiqIspAfdParams", RkAiqCore::DEFAULT_POOL_SIZE);

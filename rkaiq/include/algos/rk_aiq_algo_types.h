@@ -1118,6 +1118,7 @@ typedef struct _RkAiqAlgoProcResAeis {
     int mesh_density;
     int img_buf_index;
     unsigned int img_size;
+    bool update;
 } RkAiqAlgoProcResAeis;
 
 // amd

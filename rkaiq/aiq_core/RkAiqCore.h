@@ -599,10 +599,12 @@ protected:
 
     // TODO: change full params to list
     // V21 differential modules
+#ifndef ISP_HW_V20
     SmartPtr<RkAiqIspDrcParamsPool>         mAiqIspDrcParamsPool;
     SmartPtr<RkAiqIspBaynrParamsPool>       mAiqIspBaynrParamsPool;
     SmartPtr<RkAiqIspBa3dParamsPool>        mAiqIspBa3dParamsPool;
     SmartPtr<RkAiqIspCnrParamsPool>         mAiqIspCnrParamsPool;
+#endif
 
     // V30
 #if RKAIQ_HAVE_CAC

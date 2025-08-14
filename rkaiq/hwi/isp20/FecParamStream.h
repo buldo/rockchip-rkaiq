@@ -42,7 +42,9 @@ protected:
 private:
     CamHwIsp20 *mCamHw;
     SmartPtr<V4l2SubDevice> mIsppSubDev;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     SmartPtr<IspParamsAssembler> mParamsAssembler;
+#endif
     struct rkispp_params_feccfg last_ispp_fec_params;
 
 };

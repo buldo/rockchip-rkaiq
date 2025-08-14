@@ -184,7 +184,7 @@ XCamReturn rk_aiq_user_api2_adehaze_getSwAttrib(const rk_aiq_sys_ctx_t* sys_ctx,
 
 #if RKAIQ_HAVE_DEHAZE_V10
 XCamReturn rk_aiq_user_api2_adehaze_v10_setSwAttrib(const rk_aiq_sys_ctx_t* sys_ctx,
-                                                    adehaze_sw_v10_t* attr) {
+                                                    const adehaze_sw_v10_t* attr) {
     CHECK_USER_API_ENABLE2(sys_ctx);
     CHECK_USER_API_ENABLE(RK_AIQ_ALGO_TYPE_ADHAZ);
 
@@ -202,8 +202,8 @@ XCamReturn rk_aiq_user_api2_adehaze_v10_setSwAttrib(const rk_aiq_sys_ctx_t* sys_
                 if (!camCtx)
                     continue;
 
-                RkAiqAdhazHandleInt* singleCam_algo_handle =
-                    algoHandle<RkAiqAdhazHandleInt>(camCtx, RK_AIQ_ALGO_TYPE_ADHAZ);
+                RkAiqAdehazeHandleInt* singleCam_algo_handle =
+                    algoHandle<RkAiqAdehazeHandleInt>(camCtx, RK_AIQ_ALGO_TYPE_ADHAZ);
                 if (singleCam_algo_handle) {
                     ret = singleCam_algo_handle->setSwAttribV10(attr);
                     if (ret != XCAM_RETURN_NO_ERROR) LOGE("%s returned: %d", __FUNCTION__, ret);
@@ -227,7 +227,7 @@ XCamReturn rk_aiq_user_api2_adehaze_v10_setSwAttrib(const rk_aiq_sys_ctx_t* sys_
 }
 
 XCamReturn rk_aiq_user_api2_adehaze_v10_getSwAttrib(const rk_aiq_sys_ctx_t* sys_ctx,
-                                                    const adehaze_sw_v10_t* attr) {
+                                                    adehaze_sw_v10_t* attr) {
     RKAIQ_API_SMART_LOCK(sys_ctx);
 
     if (sys_ctx->cam_type == RK_AIQ_CAM_TYPE_GROUP) {

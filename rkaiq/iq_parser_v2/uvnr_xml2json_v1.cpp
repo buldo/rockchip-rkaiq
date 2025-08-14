@@ -28,14 +28,14 @@ int uvnrV1_calibdb_to_calibdbV2(const CalibDb_UVNR_2_t *pCalibdb,  CalibDbV2_UVN
     pTuningParaV2 = &pCalibdbV2->TuningPara;
 
     //malloc settting size
-    pTuningParaV2->Setting = (CalibDbV2_UVNR_TuningPara_Setting_t *)malloc(UVNRV1_SETTING_NUM * sizeof(CalibDbV2_UVNR_TuningPara_Setting_t));
-    memset(pTuningParaV2->Setting, 0x00, UVNRV1_SETTING_NUM * sizeof(CalibDbV2_UVNR_TuningPara_Setting_t));
+    pTuningParaV2->Setting = (CalibDbV2_UVNR_T_Set_t *)malloc(UVNRV1_SETTING_NUM * sizeof(CalibDbV2_UVNR_T_Set_t));
+    memset(pTuningParaV2->Setting, 0x00, UVNRV1_SETTING_NUM * sizeof(CalibDbV2_UVNR_T_Set_t));
     pTuningParaV2->Setting_len = UVNRV1_SETTING_NUM;
 
     //malloc iso size
     for(int i = 0; i < UVNRV1_SETTING_NUM; i++) {
-        pTuningParaV2->Setting[i].Tuning_ISO = (CalibDbV2_UVNR_TuningPara_Setting_ISO_t *)malloc(UVNRV1_ISO_NUM * sizeof(CalibDbV2_UVNR_TuningPara_Setting_ISO_t));
-        memset(pTuningParaV2->Setting[i].Tuning_ISO, 0x00, UVNRV1_ISO_NUM * sizeof(CalibDbV2_UVNR_TuningPara_Setting_ISO_t));
+        pTuningParaV2->Setting[i].Tuning_ISO = (CalibDbV2_UVNR_T_ISO_t *)malloc(UVNRV1_ISO_NUM * sizeof(CalibDbV2_UVNR_T_ISO_t));
+        memset(pTuningParaV2->Setting[i].Tuning_ISO, 0x00, UVNRV1_ISO_NUM * sizeof(CalibDbV2_UVNR_T_ISO_t));
         pTuningParaV2->Setting[i].Tuning_ISO_len = UVNRV1_ISO_NUM;
     }
 

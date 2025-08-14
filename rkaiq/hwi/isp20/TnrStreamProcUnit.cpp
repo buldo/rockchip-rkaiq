@@ -30,7 +30,9 @@ TnrStreamProcUnit::TnrStreamProcUnit (const rk_sensor_full_info_t *s_info)
     mTnrParamsDev->open();
     mTnrStatsStream = new TnrStatsStream(mTnrStatsDev, ISPP_POLL_TNR_STATS);
     mTnrParamStream = new RKStream(mTnrParamsDev, ISPP_POLL_TNR_PARAMS);
+#ifndef DISABLE_PARAMS_ASSEMBLER
     mParamsAssembler = new IspParamsAssembler("TNR_PARAMS_ASSEMBLER");
+#endif
     mCamHw = NULL;
     memset(&last_ispp_tnr_params, 0, sizeof(last_ispp_tnr_params));
 }
@@ -52,6 +54,7 @@ TnrStreamProcUnit::start()
             mTnrParamStream->start();
     }
     // set inital params
+#ifndef DISABLE_PARAMS_ASSEMBLER
     ret = mParamsAssembler->start();
     if (ret < 0) {
         LOGE_CAMHW_SUBM(ISP20HW_SUBM, "params assembler start err: %d\n", ret);
@@ -62,6 +65,8 @@ TnrStreamProcUnit::start()
         configToDrv(0);
     else
         LOGE_CAMHW_SUBM(ISP20HW_SUBM, "no inital tnr params ready");
+#endif
+
 }
 
 void
@@ -71,8 +76,10 @@ TnrStreamProcUnit::stop()
         mTnrParamStream->stop();
     if (mTnrStatsStream.ptr())
         mTnrStatsStream->stop();
+#ifndef DISABLE_PARAMS_ASSEMBLER
     if (mParamsAssembler.ptr())
         mParamsAssembler->stop();
+#endif
 }
 
 void
@@ -96,18 +103,19 @@ TnrStreamProcUnit::set_devices(CamHwIsp20 *camHw, SmartPtr<V4l2SubDevice> isppde
 XCamReturn TnrStreamProcUnit::configToDrv(uint32_t frameId)
 {
     XCamReturn ret = XCAM_RETURN_NO_ERROR;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     XCAM_ASSERT (mParamsAssembler.ptr());
-
+#endif
     SmartPtr<V4l2Buffer> v4l2buf_tnr;
     if (mTnrParamsDev.ptr()) {
 
         struct rkispp_params_tnrcfg *ispp_tnr_params = NULL;
-
+#ifndef DISABLE_PARAMS_ASSEMBLER
         if (!mParamsAssembler->ready()) {
             LOGI_CAMHW_SUBM(ISP20HW_SUBM, "have no tnr new parameter\n");
             return XCAM_RETURN_ERROR_PARAM;
         }
-
+#endif
         ret = mTnrParamsDev->get_buffer(v4l2buf_tnr);
         if (ret) {
             LOGW_CAMHW_SUBM(ISP20HW_SUBM, "Can not get ispp tnr params buffer\n");
@@ -115,12 +123,14 @@ XCamReturn TnrStreamProcUnit::configToDrv(uint32_t frameId)
         }
 
         cam3aResultList ready_results;
+#ifndef DISABLE_PARAMS_ASSEMBLER
         ret = mParamsAssembler->deQueOne(ready_results, frameId);
         if (ret != XCAM_RETURN_NO_ERROR) {
             LOGI_CAMHW_SUBM(ISP20HW_SUBM, "deque parameter failed\n");
             ret = XCAM_RETURN_ERROR_PARAM;
             goto ret_tnr_buf;
         }
+#endif
 
         ispp_tnr_params = (struct rkispp_params_tnrcfg*)v4l2buf_tnr->get_buf().m.userptr;
         ispp_tnr_params->head.frame_id = frameId;
@@ -162,6 +172,7 @@ ret_tnr_buf:
 XCamReturn TnrStreamProcUnit::config_params(uint32_t frameId, SmartPtr<cam3aResult>& result)
 {
     XCamReturn ret = XCAM_RETURN_NO_ERROR;
+#ifndef DISABLE_PARAMS_ASSEMBLER
     XCAM_ASSERT (mParamsAssembler.ptr());
 
     // params device should started befor any params queued
@@ -176,7 +187,7 @@ XCamReturn TnrStreamProcUnit::config_params(uint32_t frameId, SmartPtr<cam3aResu
                 break;
         }
     }
-
+#endif
     return ret;
 }
 

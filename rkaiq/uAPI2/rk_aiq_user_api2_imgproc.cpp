@@ -1509,11 +1509,11 @@ XCamReturn rk_aiq_uapi2_getMDehazeStrth(const rk_aiq_sys_ctx_t* ctx, unsigned in
         RKAIQ_IMGPROC_CHECK_RET(ret, "param error, ctx is NULL!");
     }
 #if RKAIQ_HAVE_DEHAZE_V10
-    adehaze_sw_v10_info_t attr_v10_info;
-    memset(&attr_v10_info, 0, sizeof(adehaze_sw_v10_info_t));
+    adehaze_sw_v10_t attr_v10_info;
+    memset(&attr_v10_info, 0, sizeof(adehaze_sw_v10_t));
     ret = rk_aiq_user_api2_adehaze_v10_getSwAttrib(ctx, &attr_v10_info);
     RKAIQ_IMGPROC_CHECK_RET(ret, "getMDhzStrth failed in get attrib!");
-    *level = attr_v10_info.CtrlInfo.MDehazeStrth;
+    *level = attr_v10_info.Info.MDehazeStrth;
 #endif
 #if RKAIQ_HAVE_DEHAZE_V11
     adehaze_sw_v11_t attr_v11;
@@ -1706,11 +1706,11 @@ XCamReturn rk_aiq_uapi2_getMEnhanceStrth(const rk_aiq_sys_ctx_t* ctx, unsigned i
         RKAIQ_IMGPROC_CHECK_RET(ret, "param error, ctx is NULL!");
     }
 #if RKAIQ_HAVE_DEHAZE_V10
-    adehaze_sw_v10_info_t attr_v10_info;
-    memset(&attr_v10_info, 0, sizeof(adehaze_sw_v10_info_t));
-    ret = rk_aiq_user_api2_adehaze_v10_getSwAttribInfo(ctx, &attr_v10_info);
+    adehaze_sw_v10_t attr_v10_info;
+    memset(&attr_v10_info, 0, sizeof(adehaze_sw_v10_t));
+    ret = rk_aiq_user_api2_adehaze_v10_getSwAttrib(ctx, &attr_v10_info);
     RKAIQ_IMGPROC_CHECK_RET(ret, "getMEnhanceStrth failed in get attrib!");
-    *level = attr_v10_info.CtrlInfo.MEnhanceStrth;
+    *level = attr_v10_info.Info.MEnhanceStrth;
 #endif
 #if RKAIQ_HAVE_DEHAZE_V11
     adehaze_sw_v11_t attr_v11;
@@ -1848,11 +1848,11 @@ XCamReturn rk_aiq_uapi2_getMEnhanceChromeStrth(const rk_aiq_sys_ctx_t* ctx, unsi
         RKAIQ_IMGPROC_CHECK_RET(ret, "param error, ctx is NULL!");
     }
 #if RKAIQ_HAVE_DEHAZE_V10
-    adehaze_sw_v10_info_t attr_v10_info;
-    memset(&attr_v10_info, 0, sizeof(adehaze_sw_v10_info_t));
-    ret = rk_aiq_user_api2_adehaze_v10_getSwAttribInfo(ctx, &attr_v10_info);
+    adehaze_sw_v10_t attr_v10_info;
+    memset(&attr_v10_info, 0, sizeof(adehaze_sw_v10_t));
+    ret = rk_aiq_user_api2_adehaze_v10_getSwAttrib(ctx, &attr_v10_info);
     RKAIQ_IMGPROC_CHECK_RET(ret, "getMEnhanceChromeStrth failed in get attrib!");
-    *level = attr_v10_info.CtrlInfo.MEnhanceChromeStrth;
+    *level = attr_v10_info.Info.MEnhanceChromeStrth;
 #endif
 #if RKAIQ_HAVE_DEHAZE_V11
     adehaze_sw_v11_t attr_v11;

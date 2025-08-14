@@ -4,19 +4,22 @@
 #define FEC_MESH_XY_NUM_ALGO 524288
 
 typedef struct {
-    unsigned char sw_fec_en;
+    unsigned int fec_en;
+    bool config;
     unsigned char crop_en;
     unsigned int crop_width;
     unsigned int crop_height;
     unsigned char mesh_density;
     unsigned int mesh_size;
     unsigned int mesh_buf_fd;
+    uint32_t frame_id;
     //unsigned short meshxi[FEC_MESH_XY_NUM_ALGO];
     //unsigned char meshxf[FEC_MESH_XY_NUM_ALGO];
     //unsigned short meshyi[FEC_MESH_XY_NUM_ALGO];
     //unsigned char meshyf[FEC_MESH_XY_NUM_ALGO];
     int usage;
     int img_buf_index;
+    unsigned int img_buf_size;
 } fec_preprocess_result_t;
 
 typedef enum fec_correct_direction_e {

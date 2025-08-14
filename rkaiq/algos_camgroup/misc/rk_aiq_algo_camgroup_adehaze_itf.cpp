@@ -98,7 +98,7 @@ static XCamReturn prepare(RkAiqAlgoCom* params) {
         CalibDbV2_dehaze_v10_t* calibv2_adehaze_calib_V10 =
             (CalibDbV2_dehaze_v10_t*)(CALIBDBV2_GET_MODULE_PTR((void*)pCalibDb, adehaze_calib));
         if (calibv2_adehaze_calib_V10)
-            memcpy(&pAdehazeGrpHandle->CalibV10, calibv2_adehaze_calib_V10,
+            memcpy(&pAdehazeGrpHandle->AdehazeAtrrV10.stAuto, calibv2_adehaze_calib_V10,
                    sizeof(CalibDbV2_dehaze_v10_t));
 #endif
 #if RKAIQ_HAVE_DEHAZE_V11

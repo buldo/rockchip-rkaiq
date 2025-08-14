@@ -499,7 +499,7 @@ processing(const RkAiqAlgoCom* inparams, RkAiqAlgoResCom* outparams)
     if (!fecCtx->fec_en)
         return XCAM_RETURN_NO_ERROR;
 
-    fecPreOut->afec_result->sw_fec_en = fecCtx->fec_en;
+    fecPreOut->afec_result->fec_en = fecCtx->fec_en;
     fecPreOut->afec_result->crop_en = 0;
     fecPreOut->afec_result->crop_width = 0;
     fecPreOut->afec_result->crop_height = 0;

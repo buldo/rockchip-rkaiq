@@ -252,7 +252,7 @@ typedef struct CalibDbV2_Awb_Sgc_Cblk_s {
 
 typedef struct CalibDbV2_Awb_Sgc_Ls_s {
     // M4_STRING_DESC("name", M4_SIZE(1,1), M4_RANGE(0, 16), "default", M4_DYNAMIC(0))
-    char name[CALD_AWB_ILLUMINATION_NAME];
+    char* name;
     // M4_NUMBER_DESC("RGain", "f32", M4_RANGE(0,8), "1", M4_DIGIT(6))
     float RGain;
     // M4_NUMBER_DESC("BGain", "f32", M4_RANGE(0,8), "1", M4_DIGIT(6))

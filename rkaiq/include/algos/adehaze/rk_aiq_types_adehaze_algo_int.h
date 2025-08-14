@@ -48,6 +48,9 @@ typedef enum dehaze_api_mode_s {
 
 // dehaze v10
 typedef struct adehaze_sw_v10_s {
+    dehaze_api_mode_t mode;
+    CalibDbV2_dehaze_v10_t stAuto;
+    mDehazeAttrInfoV11_t Info;
 } adehaze_sw_v10_t;
 
 // dehaze v11
